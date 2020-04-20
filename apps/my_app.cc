@@ -2,21 +2,22 @@
 
 #include "my_app.h"
 
-#include <cinder/app/App.h>
-
-
 namespace myapp {
 
 using cinder::app::KeyEvent;
 
-MyApp::MyApp() { }
+MyApp::MyApp() : gravity{0.0f, -10.0f}, world{gravity} {}
 
-void MyApp::setup() { }
+void MyApp::setup() {}
 
-void MyApp::update() { }
+void MyApp::update() {}
 
-void MyApp::draw() { }
+void MyApp::draw() {
+  b2CircleShape circle;
+  circle.m_p.Set(2.0f, 3.0f);
+  circle.m_radius = 0.5f;
+}
 
-void MyApp::keyDown(KeyEvent event) { }
+void MyApp::keyDown(KeyEvent event) {}
 
 }  // namespace myapp
