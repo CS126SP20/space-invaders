@@ -3,11 +3,14 @@
 #ifndef FINALPROJECT_APPS_MYAPP_H_
 #define FINALPROJECT_APPS_MYAPP_H_
 
-#include <cinder/app/App.h>
+#include "cinder/app/App.h"
 #include "Box2D/Box2D.h"
 #include "cinder/gl/gl.h"
+#include "choreograph/Choreograph.h"
+#include "spaceinvaders/player.h"
+#include "cinder/app/KeyEvent.h"
 
-namespace myapp {
+namespace spaceinvadersapp {
 
 class MyApp : public cinder::app::App {
  public:
@@ -18,10 +21,11 @@ class MyApp : public cinder::app::App {
   void keyDown(cinder::app::KeyEvent) override;
 
  private:
-  b2Vec2 gravity;
-  b2World world;
+  b2Vec2 gravity_;
+  b2World world_;
+  spaceinvaders::Player player_;
 };
 
-}  // namespace myapp
+}  // namespace spaceinvadersapp
 
 #endif  // FINALPROJECT_APPS_MYAPP_H_
