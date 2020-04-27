@@ -4,12 +4,18 @@
 
 namespace spaceinvaders {
 
-Player::Player() : health_{100} {}
+Player::Player() : lives_{3}, score_{0} {}
 
-void Player::MoveLeft() {}
+void Player::AddToScore(int points) {
+  score_ += points;
+}
 
-void Player::MoveRight() {}
+void Player::SubtractFromScore(int points) {
+  score_ -= points;
+}
 
-void Player::Shoot() {}
+void Player::RemoveLife() {
+  lives_--;
+}
 
 }  // namespace spaceinvaders

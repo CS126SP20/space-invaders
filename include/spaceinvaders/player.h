@@ -9,15 +9,17 @@ class Player {
  public:
   Player();
 
-  void MoveLeft();
+  void AddToScore(int points);
 
-  void MoveRight();
+  auto GetScore() -> int { return score_; }
 
-  void Shoot();
+  void SubtractFromScore(int points);
+
+  void RemoveLife();
 
  private:
-  int health_;
-
+  int lives_;
+  int score_;
 };
 
 }  // namespace spaceinvaders
