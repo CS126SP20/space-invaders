@@ -6,6 +6,8 @@
 #define FINALPROJECT_INVADER_H
 
 #include <spaceinvaders/collidable.h>
+#include "spaceinvaders/player.h"
+
 namespace spaceinvaders {
 
 

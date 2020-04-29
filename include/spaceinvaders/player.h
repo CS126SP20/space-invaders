@@ -2,18 +2,20 @@
 #ifndef FINALPROJECT_MYLIBRARY_EXAMPLE_H_
 #define FINALPROJECT_MYLIBRARY_EXAMPLE_H_
 
-#include "cinder/app/AppBase.h"
-#include "collidable.h"
 #include "Box2D/Box2D.h"
+#include "cinder/Utilities.h"
+#include "cinder/app/AppBase.h"
+#include "spaceinvaders/collidable.h"
 
 namespace spaceinvaders {
 
-class Player : public Collidable {
+class Player {
  public:
   constexpr static int kWidth = 44;
   constexpr static int kHeight = 32;
 
   Player();
+
 
   void MoveLeft();
   void MoveRight();
@@ -21,6 +23,7 @@ class Player : public Collidable {
   void Update();
   void Draw();
 
+  /*
   cinder::vec2 GetGunPosition() const;
 
   const cinder::vec2 &GetPosition() const;
@@ -29,15 +32,16 @@ class Player : public Collidable {
   int GetLives() const;
   bool IsAlive();
 
-  void TryRevive();
+  void TryRevive();*/
 
  private:
-  void Restart();
+  //void Restart();
   cinder::Rectf sprite_;
+  cinder::gl::TextureRef texture_;
   cinder::vec2 velocity_;
   cinder::Timer death_timer_;
 
-  constexpr static int kWindowHeight = 500;
+  const float speed = 20;
   bool is_alive_ = true;
   int lives_left_ = 3;
 };
