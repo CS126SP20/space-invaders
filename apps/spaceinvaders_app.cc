@@ -1,40 +1,29 @@
 // Copyright (c) 2020 Saurav Raghavendra. All rights reserved.
 
 #include "spaceinvaders_app.h"
+#include "spaceinvaders/Box2dUtils.h"
+#include "spaceinvaders/Box2dUtils.cc"
 
 namespace spaceinvadersapp {
 
 using cinder::vec3;
 using cinder::app::KeyEvent;
 
-MyApp::MyApp()
-    : gravity_{0.0f, -10.0f},
-      world_{gravity_},
-      player_{spaceinvaders::Player()} {}
+MyApp::MyApp() {}
 
 void MyApp::setup() {
-  cinder::gl::enableDepthWrite();
-  cinder::gl::enableDepthRead();
 }
 
 void MyApp::update() {}
 
 void MyApp::draw() {
-  b2BodyDef groundBodyDef;
-  groundBodyDef.position.Set(0.0f, -10.0f);
-  b2Body* groundBody = world_.CreateBody(&groundBodyDef);
-  cinder::gl::color(cinder::Color::black());
+  cinder::Rectf rectf({getWindowWidth() / 2, (float)getWindowHeight() - 40.0f});
+  auto img = loadImage(loadAsset("player.png"));
+  cinder::gl::Texture2dRef texture2D = cinder::gl::Texture2d::create(img);
+  cinder::gl::draw(texture2D, rectf);
 }
 
 void MyApp::keyDown(KeyEvent event) {
-  switch (event.getCode()) {
-    case KeyEvent::KEY_LEFT:
-      left_down_ = true;
-      break;
-    case KeyEvent::KEY_RIGHT:
-      right_down_ = true;
-      break;
-  }
 }
 
 }  // namespace spaceinvadersapp

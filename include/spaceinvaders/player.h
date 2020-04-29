@@ -2,27 +2,46 @@
 #ifndef FINALPROJECT_MYLIBRARY_EXAMPLE_H_
 #define FINALPROJECT_MYLIBRARY_EXAMPLE_H_
 
+#include "cinder/app/AppBase.h"
+#include "collidable.h"
+#include "Box2D/Box2D.h"
 
 namespace spaceinvaders {
 
-class Player {
+class Player : public Collidable {
  public:
+  constexpr static int kWidth = 44;
+  constexpr static int kHeight = 32;
+
   Player();
 
-  void AddToScore(int points);
+  void MoveLeft();
+  void MoveRight();
 
-  auto GetScore() -> int { return score_; }
+  void Update();
+  void Draw();
 
-  void SubtractFromScore(int points);
+  cinder::vec2 GetGunPosition() const;
 
-  void RemoveLife();
+  const cinder::vec2 &GetPosition() const;
+  void OnCollide(Collidable &other) override;
+
+  int GetLives() const;
+  bool IsAlive();
+
+  void TryRevive();
 
  private:
-  int lives_;
-  int score_;
+  void Restart();
+  cinder::Rectf sprite_;
+  cinder::vec2 velocity_;
+  cinder::Timer death_timer_;
+
+  constexpr static int kWindowHeight = 500;
+  bool is_alive_ = true;
+  int lives_left_ = 3;
 };
 
 }  // namespace spaceinvaders
 
-
-#endif // FINALPROJECT_MYLIBRARY_EXAMPLE_H_
+#endif  // FINALPROJECT_MYLIBRARY_EXAMPLE_H_

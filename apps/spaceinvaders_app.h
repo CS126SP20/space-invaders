@@ -22,17 +22,6 @@ class MyApp : public cinder::app::App {
   void keyDown(cinder::app::KeyEvent) override;
 
  private:
-  b2Vec2 gravity_;
-  b2World world_;
-  spaceinvaders::Player player_;
-  int formation_delta_ = 0;
-  double formation_direction_ = 1.5;
-  bool left_down_ = false;
-  bool right_down_ = false;
-  std::chrono::time_point<std::chrono::system_clock> last_fired_;
-  std::chrono::time_point<std::chrono::system_clock> last_bombed_;
-  std::vector<b2BodyDef> invaders_;
-  std::vector<b2BodyDef> garbage_bodies_;
 };
 
 }  // namespace spaceinvadersapp

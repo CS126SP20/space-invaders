@@ -12,15 +12,15 @@ using cinder::app::RendererGl;
 namespace spaceinvadersapp {
 
 const int kSamples = 8;
-const int kWidth = 800;
-const int kHeight = 800;
+const int kWidth = 500;
+const int kHeight = 500;
 
 void SetUp(App::Settings* settings) {
   settings->setWindowSize(kWidth, kHeight);
   settings->setTitle("Space Invaders");
 }
 
-}  // namespace myapp
+}  // namespace spaceinvadersapp
 
 
 // This is a macro that runs the application.
