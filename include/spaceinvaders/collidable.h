@@ -22,6 +22,6 @@ class Collidable {
  private:
   cinder::vec2 size_;
 };
-}
+}  // namespace spaceinvaders
 
 #endif  // FINALPROJECT_COLLIDABLE_H

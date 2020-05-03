@@ -29,9 +29,7 @@ class Invader : public Collidable {
 
   void OnCollide(Collidable &other) override;
 
-  void MakeAlive() {
-
-  }
+  void MakeAlive() { return;};
 
  private:
   const cinder::vec2 initial_position_;
