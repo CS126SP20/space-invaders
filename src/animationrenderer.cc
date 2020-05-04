@@ -13,7 +13,6 @@ AnimationRenderer::AnimationRenderer(float x1, float y1, float x2, float y2,
 void AnimationRenderer::NextFrame() { current_frame_++; }
 
 void AnimationRenderer::RenderEntity(const cinder::vec2 &position) {
-  cinder::gl::clear();
   entity_.offsetCenterTo(position);
   cinder::gl::draw(texture_, entity_);
 }

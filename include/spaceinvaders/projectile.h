@@ -10,8 +10,8 @@ namespace spaceinvaders {
 
 class Projectile : public Collidable {
  public:
-  constexpr static float HEIGHT = 24;
-  constexpr static float WIDTH = 12;
+  constexpr static float kHeight = 24;
+  constexpr static float kWidth = 12;
 
   enum class Type { Rectangle, Lightning, Knife };
 
@@ -33,7 +33,7 @@ class Projectile : public Collidable {
   cinder::vec2 position_;
   Type type_;
   Direction direction_;
-  bool is_active_;
+  bool is_active_ = true;
   int id_;
 };
 }  // namespace spaceinvaders

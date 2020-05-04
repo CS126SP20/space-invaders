@@ -11,16 +11,20 @@ namespace spaceinvaders {
 
 class Collidable {
  public:
-  Collidable(float width, float height);
+  Collidable(float x1, float y1, float x2, float y2);
 
   bool TryCollideWith(Collidable &other);
-  cinder::RectT<float> GetBox() const;
+  cinder::Rectf GetBox() const;
 
   virtual const cinder::vec2 &GetPosition() const = 0;
   virtual void OnCollide(Collidable &other) = 0;
 
  private:
   cinder::vec2 size_;
+  float x1_;
+  float y1_;
+  float x2_;
+  float y2_;
 };
 }  // namespace spaceinvaders
 

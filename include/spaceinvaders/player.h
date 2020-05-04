@@ -15,7 +15,6 @@ class Player : public Collidable{
 
   Player();
 
-
   void MoveLeft();
   void MoveRight();
 

@@ -8,28 +8,27 @@ namespace spaceinvaders {
 using cinder::vec2;
 
 Invader::Invader(const cinder::vec2 &initial_location, Type type)
-    : Collidable(kWidth, kHeight),
-      initial_position_(initial_location),
+    : initial_position_(initial_location),
+      Collidable(initial_location.x - kWidth,
+                 initial_location.y - kHeight,
+                 initial_location.x + kWidth,
+                 initial_location.y + kHeight),
       location_(initial_location),
       type_(type) {}
 
 void Invader::Move(float x, float y) {
-  location_ += vec2{x, y};
+  location_.x += x;
+  location_.y += y;
 }
 
-const vec2 &Invader::GetPosition() const {
-  return location_;
-}
+const vec2 &Invader::GetPosition() const { return location_; }
 
-bool Invader::IsAlive() const {
-  return is_alive_;
-}
+bool Invader::IsAlive() const { return is_alive_; }
 
-Invader::Type Invader::GetType() const {
-  return type_;
-}
+Invader::Type Invader::GetType() const { return type_; }
 
 void Invader::OnCollide([[maybe_unused]] Collidable &other) {
   is_alive_ = false;
 }
+
 }  // namespace spaceinvaders

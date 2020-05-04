@@ -8,8 +8,9 @@ using cinder::app::getWindowHeight;
 
 Projectile::Projectile(const cinder::vec2 &position, Type type,
                        Direction direction)
-    : Collidable(WIDTH / 1.5, HEIGHT),
-      position_(position),
+    : position_(position),
+      Collidable(position.x - kWidth, position.y - kHeight,
+                 position.x + kWidth, position.y + kHeight),
       type_(type),
       direction_(direction) {
   static int ID = 0;
@@ -17,7 +18,7 @@ Projectile::Projectile(const cinder::vec2 &position, Type type,
 }
 
 void Projectile::Update() {
-  float speed = 650 * static_cast<float>(direction_);
+  float speed = 100 * static_cast<float>(direction_);
   position_.y += speed;
   if (position_.y <= 0 ||
       position_.y >= static_cast<float>(getWindowHeight())) {
@@ -25,27 +26,15 @@ void Projectile::Update() {
   }
 }
 
-void Projectile::OnCollide([[maybe_unused]] Collidable &other) {
-  Destroy();
-}
+void Projectile::OnCollide([[maybe_unused]] Collidable &other) { Destroy(); }
 
-void Projectile::Destroy() {
-  is_active_ = false;
-}
+void Projectile::Destroy() { is_active_ = false; }
 
-const cinder::vec2 &Projectile::GetPosition() const {
-  return position_;
-}
+const cinder::vec2 &Projectile::GetPosition() const { return position_; }
 
-bool Projectile::IsActive() const {
-  return is_active_;
-}
+bool Projectile::IsActive() const { return is_active_; }
 
-Projectile::Direction Projectile::GetDirection() const {
-  return direction_;
-}
+Projectile::Direction Projectile::GetDirection() const { return direction_; }
 
-int Projectile::GetID() const {
-  return id_;
-}
+int Projectile::GetID() const { return id_; }
 }  // namespace spaceinvaders

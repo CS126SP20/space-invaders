@@ -23,23 +23,30 @@ class Invader : public Collidable {
 
   void Move(float x, float y);
 
-  const cinder::vec2 &GetPosition() const;
-  bool IsAlive() const;
-  Type GetType() const;
+  void KillInvader() {is_alive_ = false;}
+
+  auto GetPosition() const -> const cinder::vec2 & override;
+  auto IsAlive() const -> bool;
+  auto GetType() const -> Type;
 
   void OnCollide(Collidable &other) override;
 
-  void MakeAlive() { return;};
+  void MakeAlive() {
+    is_alive_ = true;
+    location_ = initial_position_;
+  };
 
  private:
   const cinder::vec2 initial_position_;
   cinder::vec2 location_;
   bool is_alive_ = false;
   Type type_;
+  void PrintTextt(const std::string &text, const cinder::Color &color,
+                  const cinder::ivec2 &size, const cinder::vec2 &loc);
 
  public:
-  constexpr static float kWidth = 48;
-  constexpr static float kHeight = 32;
+  constexpr static float kWidth = 10;
+  constexpr static float kHeight = 16;
 };
 }
 

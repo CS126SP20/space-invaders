@@ -7,15 +7,19 @@ namespace spaceinvaders {
 using cinder::app::getWindowHeight;
 using cinder::app::getWindowWidth;
 
+using cinder::TextBox;
+using cinder::app::getWindowCenter;
+
 namespace {
 const int kMaxInvaders = 55;
 }
 
 InvaderManager::InvaderManager()
     : step_gap_(std::chrono::seconds(static_cast<long>(0.5f))),
-      invader_renderer_(0, 50, Invader::kWidth, 50 + Invader::kHeight,
-                       "invader1.png"),
-      step_timer_(true) {
+      invader_renderer_(0, 25, Invader::kWidth, 25 + Invader::kHeight,
+                        "invader1.png"),
+      step_timer_(true),
+      alive_invaders_(0) {
   const int gap = 10;
 
   for (int y = 0; y < 5; y++) {
@@ -33,7 +37,7 @@ void InvaderManager::TryStepInvaders() {
     invader_renderer_.NextFrame();
 
     bool MoveDown = false;
-    float step = is_moving_left ? -10.0f : 10.0f;
+    float step = is_moving_left ? -0.8f : 0.8f;
     if (move_down_) {
       step *= -1;
     }
@@ -49,13 +53,12 @@ void InvaderManager::TryStepInvaders() {
       } else if (!MoveDown) {
         MoveDown = TestInvaderPosition(invader);
       }
-
-      if (move_down_) {
-        is_moving_left = !is_moving_left;
-      }
-      move_down_ = MoveDown;
-      step_timer_.start();
     }
+    if (move_down_) {
+      is_moving_left = !is_moving_left;
+    }
+    move_down_ = MoveDown;
+    step_timer_.start();
   }
 }
 
@@ -74,8 +77,9 @@ CollisionResult InvaderManager::TryCollideWithProjectiles(
   std::vector<cinder::vec2> collisionPoints;
   for (auto &projectile : projectiles) {
     for (auto &invader : invaders_) {
-      if (!invader.IsAlive() || !projectile.IsActive()) continue;
-      if (projectile.TryCollideWith(invader)) {
+      if (!invader.IsAlive()/* || !projectile.IsActive()*/) continue;
+      if (projectile.TryCollideWith(invader) &&
+          projectile.GetDirection() != Projectile::Direction::Down) {
         alive_invaders_--;
         if (alive_invaders_ == 0) {
           has_all_invaders_been_added_ = false;
@@ -108,7 +112,7 @@ cinder::vec2 InvaderManager::GetRandomLowestInvaderPoint(cinder::Rand &random) {
 }
 
 void InvaderManager::InitAddInvader() {
-  cinder::Timer delay(true);
+  static cinder::Timer delay(true);
   if (delay.getSeconds() > 0.02) {
     invaders_.at(init_y_ * 11 + init_x_).MakeAlive();
     alive_invaders_++;
@@ -149,4 +153,5 @@ bool InvaderManager::TestInvaderPosition(const Invader &invader) {
 auto InvaderManager::GetAliveInvadersCount() const -> int {
   return alive_invaders_;
 }
+
 }  // namespace spaceinvaders

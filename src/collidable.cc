@@ -5,7 +5,8 @@
 #include "spaceinvaders/collidable.h"
 
 namespace spaceinvaders {
-Collidable::Collidable(float width, float height) : size_(width, height) {}
+Collidable::Collidable(float x1, float y1, float x2, float y2)
+    : x1_(x1), y1_(y1), x2_(x2), y2_(y2) {}
 
 bool Collidable::TryCollideWith(Collidable &other) {
   if (GetBox().intersects(other.GetBox())) {
@@ -16,7 +17,7 @@ bool Collidable::TryCollideWith(Collidable &other) {
   return false;
 }
 
-cinder::RectT<float> Collidable::GetBox() const {
-  return {GetPosition().x, GetPosition().y, size_.x, size_.y};
+cinder::Rectf Collidable::GetBox() const {
+  return {x1_, y1_, x2_, y2_};
 }
 }  // namespace spaceinvaders

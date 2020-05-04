@@ -13,9 +13,9 @@
 #include "spaceinvaders/invader.h"
 #include "spaceinvaders/projectile.h"
 #include "cinder/app/AppBase.h"
+#include "cinder/app/App.h"
 
 namespace spaceinvaders {
-class World;
 using CollisionResult = std::pair<int, std::vector<cinder::vec2>>;
 
 class InvaderManager {
@@ -26,7 +26,8 @@ class InvaderManager {
 
   void DrawInvaders();
 
-  auto TryCollideWithProjectiles(std::vector<Projectile> &projectiles) -> CollisionResult;
+  CollisionResult
+  TryCollideWithProjectiles(std::vector<Projectile> &projectiles);
 
   auto GetRandomLowestInvaderPoint(cinder::Rand &random) -> cinder::vec2;
 
@@ -36,6 +37,8 @@ class InvaderManager {
   auto AreInvadersAlive() const -> bool;
 
   auto GetGameOver() -> bool { return is_game_over_;}
+
+  auto GetInvaders() -> std::vector<Invader> { return invaders_;}
 
  private:
   void UpdateStepDelay();
@@ -53,7 +56,6 @@ class InvaderManager {
   bool is_moving_left = false;
   bool move_down_ = false;
   bool is_game_over_ = false;
-  cinder::gl::Texture2dRef texture_;
 
   int init_x_ = 0;
   int init_y_ = 4;

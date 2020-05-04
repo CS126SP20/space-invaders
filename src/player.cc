@@ -12,7 +12,8 @@ using cinder::app::loadAsset;
 using cinder::gl::Texture2d;
 
 Player::Player()
-    : Collidable(44, 32),
+    : Collidable(getWindowCenter().x - 22.0f, getWindowCenter().y + 210.0f,
+                 getWindowCenter().x, getWindowCenter().y + 16.0f + 210.0f),
       sprite_{getWindowCenter().x - 22.0f, getWindowCenter().y + 210.0f,
               getWindowCenter().x, getWindowCenter().y + 16.0f + 210.0f},
       texture_{Texture2d::create(loadImage(loadAsset("player.png")))} {

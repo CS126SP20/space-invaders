@@ -17,7 +17,7 @@ constexpr float Y_POS = 45;
 }  // namespace
 
 UFO::UFO(cinder::Rand &rand)
-    : Collidable(WIDTH, HEIGHT),
+    : Collidable(0, 0, 10, 5),
       rng_(rand),
       texture_(Texture2d::create(loadImage(loadAsset("ufo.png")))),
       json_(cinder::JsonTree(loadAsset("ufo.json")))

@@ -3,6 +3,8 @@
 #ifndef FINALPROJECT_APPS_MYAPP_H_
 #define FINALPROJECT_APPS_MYAPP_H_
 
+#include <poScene/Events.h>
+#include <poScene/View.h>
 #include <spaceinvaders/ufo.h>
 
 #include <vector>
@@ -12,13 +14,16 @@
 #include "cinder/app/App.h"
 #include "cinder/app/KeyEvent.h"
 #include "cinder/gl/gl.h"
+#include "poScene/ShapeView.h"
+#include "poScene/View.h"
+#include "poScene/ViewController.h"
 #include "spaceinvaders/collidable.h"
 #include "spaceinvaders/invadermanager.h"
 #include "spaceinvaders/player.h"
 #include "spaceinvaders/projectile.h"
 #include "spaceinvaders/ufo.h"
 
-namespace spaceinvadersapp {
+namespace spaceinvaders {
 
 class MyApp : public cinder::app::App {
  public:
@@ -29,17 +34,28 @@ class MyApp : public cinder::app::App {
   void keyDown(cinder::app::KeyEvent) override;
 
  private:
-  spaceinvaders::Player player;
-  spaceinvaders::UFO ufo;
+  void PlayerInput();
+  void UpdateProjectiles(std::vector<cinder::vec2> &collision_points);
+  void EnemyProjectileFire();
+  auto GetCollisionResult() -> spaceinvaders::CollisionResult;
+  spaceinvaders::Player player_;
+  spaceinvaders::UFO ufo_;
   cinder::Rand rand;
   spaceinvaders::InvaderManager invaders_;
+  std::vector<spaceinvaders::Invader> invader_vector_;
   std::vector<spaceinvaders::Projectile> projectiles_;
   spaceinvaders::AnimationRenderer projectile_renderer_;
-  cinder::gl::Texture2dRef texture_;
+  cinder::Timer invader_shot_clock_;
   cinder::Timer player_shot_clock_;
   cinder::Timer anim_timer_;
+  cinder::Rectf invader_guy_;
+  cinder::Rectf single_projectile_;
+  cinder::gl::TextureRef projectile_texture_;
+  cinder::gl::TextureRef texture_;
+  int score_;
+  po::scene::ViewRef view;
 };
 
-}  // namespace spaceinvadersapp
+}  // namespace spaceinvaders
 
 #endif  // FINALPROJECT_APPS_MYAPP_H_
