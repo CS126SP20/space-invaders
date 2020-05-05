@@ -7,7 +7,7 @@ My game idea is to build a version of Space Invaders in Cinder. The player will 
 
 I do not have any specific experience with this project, but reading through the code for the Snake game gave me some of an idea on how to approach a simple game like this. I do enjoy playing classic arcade games like these so I would like to see this project to its completion.
 
-I plan to use [Cinder-poSpriteSheet](https://github.com/sansumbrella/Choreograph) for sprites and animation as well as [Cinder-poScene](https://github.com/ryanbartley/Cinder-Bullet3D) for views.
+I plan to use [Cinder-poSpriteSheet](https://github.com/Potion/Cinder-poSpritesheet) for sprites and animation as well as [Cinder-poScene](https://github.com/Potion/Cinder-poScene) for views.
 
 In the first week, I hope to get the general graphics for the game implemented and potentially the player. By the second week, I hope to get the player and the shooting implemented and get a start on the aliens. By the third week, I hope to have the aliens implemented as well as scoring.
 
