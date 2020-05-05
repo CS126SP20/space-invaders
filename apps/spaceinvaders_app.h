@@ -34,7 +34,6 @@ class MyApp : public cinder::app::App {
   void keyDown(cinder::app::KeyEvent) override;
 
  private:
-  void PlayerInput();
   void UpdateProjectiles(std::vector<cinder::vec2> &collision_points);
   void EnemyProjectileFire();
   auto GetCollisionResult() -> spaceinvaders::CollisionResult;
@@ -42,16 +41,11 @@ class MyApp : public cinder::app::App {
   spaceinvaders::UFO ufo_;
   cinder::Rand rand;
   spaceinvaders::InvaderManager invaders_;
-  std::vector<spaceinvaders::Invader> invader_vector_;
   std::vector<spaceinvaders::Projectile> projectiles_;
   spaceinvaders::AnimationRenderer projectile_renderer_;
   cinder::Timer invader_shot_clock_;
   cinder::Timer player_shot_clock_;
   cinder::Timer anim_timer_;
-  cinder::Rectf invader_guy_;
-  cinder::Rectf single_projectile_;
-  cinder::gl::TextureRef projectile_texture_;
-  cinder::gl::TextureRef texture_;
   int score_;
   po::scene::ViewRef view;
 };

@@ -9,8 +9,8 @@ using cinder::app::getWindowHeight;
 Projectile::Projectile(const cinder::vec2 &position, Type type,
                        Direction direction)
     : position_(position),
-      Collidable(position.x - kWidth, position.y - kHeight,
-                 position.x + kWidth, position.y + kHeight),
+      Collidable(position.x - (kWidth / 2.0f), position.y - (kHeight / 2.0f),
+                 position.x + (kWidth / 2.0f), position.y + (kHeight / 2.0f)),
       type_(type),
       direction_(direction) {
   static int ID = 0;
@@ -18,7 +18,7 @@ Projectile::Projectile(const cinder::vec2 &position, Type type,
 }
 
 void Projectile::Update() {
-  float speed = 100 * static_cast<float>(direction_);
+  float speed = 5 * static_cast<float>(direction_);
   position_.y += speed;
   if (position_.y <= 0 ||
       position_.y >= static_cast<float>(getWindowHeight())) {

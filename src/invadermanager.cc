@@ -77,9 +77,10 @@ CollisionResult InvaderManager::TryCollideWithProjectiles(
   std::vector<cinder::vec2> collisionPoints;
   for (auto &projectile : projectiles) {
     for (auto &invader : invaders_) {
-      if (!invader.IsAlive()/* || !projectile.IsActive()*/) continue;
-      if (projectile.TryCollideWith(invader) &&
-          projectile.GetDirection() != Projectile::Direction::Down) {
+      if (!invader.IsAlive() || !projectile.IsActive()) {
+        continue;
+      }
+      if (projectile.TryCollideWith(invader)) {
         alive_invaders_--;
         if (alive_invaders_ == 0) {
           has_all_invaders_been_added_ = false;
@@ -142,7 +143,7 @@ void InvaderManager::UpdateStepDelay() {
 }
 
 bool InvaderManager::TestInvaderPosition(const Invader &invader) {
-  if (invader.GetPosition().y > getWindowHeight() - 150) {
+  if (invader.GetPosition().y > getWindowHeight() - 75) {
     is_game_over_ = true;
   }
   return (invader.GetPosition().x < 15 && is_moving_left) ||

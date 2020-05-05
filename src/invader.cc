@@ -9,10 +9,10 @@ using cinder::vec2;
 
 Invader::Invader(const cinder::vec2 &initial_location, Type type)
     : initial_position_(initial_location),
-      Collidable(initial_location.x - kWidth,
-                 initial_location.y - kHeight,
-                 initial_location.x + kWidth,
-                 initial_location.y + kHeight),
+      Collidable(initial_location.x - (kWidth / 2.0f),
+                 initial_location.y - (kHeight / 2.0f),
+                 initial_location.x + (kWidth / 2.0f),
+                 initial_location.y + (kHeight / 2.0f)),
       location_(initial_location),
       type_(type) {}
 

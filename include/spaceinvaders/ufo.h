@@ -11,6 +11,7 @@
 #include "poSpritesheet/poSpritesheetAnimation.h"
 #include "spaceinvaders/collidable.h"
 #include "choreograph/Choreograph.h"
+#include "cinder/Timeline.h"
 
 namespace spaceinvaders {
 
@@ -40,6 +41,7 @@ class UFO : public Collidable {
   po::SpritesheetAnimationRef animation_;
   cinder::JsonTree json_;
   choreograph::Timeline timeline_;
+  cinder::Anim<cinder::vec2> start_pos_;
 };
 }  // namespace spaceinvaders
 

@@ -20,7 +20,7 @@ ci_make_library(
         SOURCES      ${SOURCE_LIST}
         INCLUDES     "${FinalProject_SOURCE_DIR}/include"
         LIBRARIES
-        BLOCKS Box2D Choreograph Cinder-poScene Cinder-poSpritesheet
+        BLOCKS Cinder-poScene Cinder-poSpritesheet
 )
 
 # All users of this library will need at least C++14

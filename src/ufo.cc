@@ -2,6 +2,8 @@
 
 #include "spaceinvaders/ufo.h"
 
+#include <glm/glm.hpp>
+
 namespace spaceinvaders {
 
 using cinder::loadImage;
@@ -11,8 +13,8 @@ using cinder::gl::Texture2d;
 using State = UFO::State;
 
 namespace {
-constexpr float WIDTH = 72;
-constexpr float HEIGHT = 36;
+constexpr float kWidth = 72;
+constexpr float kHeight = 36;
 constexpr float Y_POS = 45;
 }  // namespace
 
@@ -20,13 +22,16 @@ UFO::UFO(cinder::Rand &rand)
     : Collidable(0, 0, 10, 5),
       rng_(rand),
       texture_(Texture2d::create(loadImage(loadAsset("ufo.png")))),
-      json_(cinder::JsonTree(loadAsset("ufo.json")))
-{
+      json_(cinder::JsonTree(loadAsset("ufo.json"))) {
   sprite_sheet_ = po::Spritesheet::create(texture_, json_);
   sprite_ = cinder::Rectf(sprite_sheet_->getFrameBounds());
   animation_ = po::SpritesheetAnimation::create(sprite_sheet_);
   animation_->setIsLoopingEnabled(true);
   animation_->play();
+  start_pos_ = cinder::vec2(500, 20);
+  cinder::vec2 end_pos = cinder::vec2(0, 20);
+
+  ci::app::timeline().apply(&start_pos_, end_pos, 15.0f).loop();
 }
 
 State UFO::GetState() const { return state_; }
@@ -40,8 +45,8 @@ void UFO::Update() {
 
     case State::Flying:
       sprite_.offset({vx_, 0});
-      if (GetPosition().x <= -WIDTH ||
-          GetPosition().x >= getWindowWidth() + WIDTH) {
+      if (GetPosition().x <= -kWidth ||
+          GetPosition().x >= getWindowWidth() + kWidth) {
         state_ = State::Waiting;
       }
       break;
@@ -52,7 +57,7 @@ void UFO::Update() {
         vx_ = static_cast<float>(rng_.nextInt(-1, 1)) * 200.0f;
         float x_pos;
         if (vx_ >= 0) {
-          x_pos = -WIDTH;
+          x_pos = -kWidth;
         } else {
           x_pos = getWindowWidth();
         }
@@ -63,13 +68,17 @@ void UFO::Update() {
 }
 
 void UFO::Draw() {
+  cinder::gl::pushModelView();
+  cinder::vec2 val = start_pos_.value();
+  cinder::gl::translate(
+      val.x - sprite_sheet_->getOriginalBounds().getWidth() / 2,
+      val.y - sprite_sheet_->getOriginalBounds().getHeight() / 2);
   animation_->draw();
-  if (state_ == State::Flying) {
-    cinder::gl::draw(texture_, sprite_);
-  }
+  cinder::gl::popModelView();
+  cinder::gl::draw(texture_, sprite_);
 }
 
-auto UFO::GetPosition() const -> const cinder::vec2 & {
+auto UFO::GetPosition() const -> const cinder::vec2 &{
   return sprite_.getCenter();
 }
 

@@ -25,6 +25,8 @@ class Collidable {
   float y1_;
   float x2_;
   float y2_;
+  float width_;
+  float height_;
 };
 }  // namespace spaceinvaders
 

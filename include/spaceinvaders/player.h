@@ -31,6 +31,8 @@ class Player : public Collidable{
 
   void TryRevive();
 
+  bool GetCollided() { return collided_;}
+
  private:
   void Restart();
   cinder::Rectf sprite_;
@@ -41,6 +43,7 @@ class Player : public Collidable{
   const float speed = 15;
   bool is_alive_ = true;
   int lives_left_ = 3;
+  bool collided_ = false;
 };
 
 }  // namespace spaceinvaders

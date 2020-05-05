@@ -13,9 +13,9 @@ using cinder::gl::Texture2d;
 
 Player::Player()
     : Collidable(getWindowCenter().x - 22.0f, getWindowCenter().y + 210.0f,
-                 getWindowCenter().x, getWindowCenter().y + 16.0f + 210.0f),
+                 getWindowCenter().x, getWindowCenter().y + 226.0f),
       sprite_{getWindowCenter().x - 22.0f, getWindowCenter().y + 210.0f,
-              getWindowCenter().x, getWindowCenter().y + 16.0f + 210.0f},
+              getWindowCenter().x, getWindowCenter().y + 226.0f},
       texture_{Texture2d::create(loadImage(loadAsset("player.png")))} {
 
 }
@@ -25,10 +25,12 @@ void Player::Restart() {
   texture_ = Texture2d::create(loadImage(loadAsset("player.png")));
   is_alive_ = true;
   lives_left_--;
-  sprite_.offsetCenterTo({getWindowCenter().x, getWindowCenter().y + 200.0f});
+  sprite_.offsetCenterTo({getWindowCenter().x, getWindowCenter().y + 226.0f});
 }
 
-void Player::Draw() { cinder::gl::draw(texture_, sprite_); }
+void Player::Draw() {
+  cinder::gl::draw(texture_, sprite_);
+}
 
 void Player::MoveLeft() { velocity_.x -= speed; }
 
@@ -59,14 +61,20 @@ auto Player::GetGunPosition() const -> cinder::vec2 {
 auto Player::GetPosition() const -> const cinder::vec2& { return sprite_.getCenter(); }
 
 void Player::OnCollide([[maybe_unused]] Collidable& other) {
-  is_alive_ = true;
+  collided_ = true;
+  is_alive_ = false;
   death_timer_.start();
 }
 
 auto Player::GetLives() const -> int {
   return lives_left_; }
 
-auto Player::IsAlive() -> bool { return is_alive_; }
+auto Player::IsAlive() -> bool {
+  if (lives_left_ < 0) {
+    return false;
+  }
+  return is_alive_;
+}
 
 void Player::TryRevive() {
   if (death_timer_.getSeconds() >= 1.5f) {

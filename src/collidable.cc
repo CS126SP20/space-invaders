@@ -6,9 +6,14 @@
 
 namespace spaceinvaders {
 Collidable::Collidable(float x1, float y1, float x2, float y2)
-    : x1_(x1), y1_(y1), x2_(x2), y2_(y2) {}
+    : x1_(x1),
+      y1_(y1),
+      x2_(x2),
+      y2_(y2),
+      width_(abs(x2 - x1)),
+      height_(abs(y2 - y1)) {}
 
-bool Collidable::TryCollideWith(Collidable &other) {
+auto Collidable::TryCollideWith(Collidable &other) -> bool {
   if (GetBox().intersects(other.GetBox())) {
     OnCollide(other);
     other.OnCollide(*this);
@@ -18,6 +23,8 @@ bool Collidable::TryCollideWith(Collidable &other) {
 }
 
 cinder::Rectf Collidable::GetBox() const {
-  return {x1_, y1_, x2_, y2_};
+  return {GetPosition().x - (width_ / 2.0f), GetPosition().y - (height_ / 2.0f),
+          GetPosition().x + (width_ / 2.0f),
+          GetPosition().y + (height_ / 2.0f)};
 }
 }  // namespace spaceinvaders

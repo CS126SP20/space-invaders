@@ -10,8 +10,8 @@ namespace spaceinvaders {
 
 class Projectile : public Collidable {
  public:
-  constexpr static float kHeight = 24;
-  constexpr static float kWidth = 12;
+  constexpr static float kHeight = 20;
+  constexpr static float kWidth = 6;
 
   enum class Type { Rectangle, Lightning, Knife };
 
