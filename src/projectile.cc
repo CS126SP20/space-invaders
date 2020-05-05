@@ -6,12 +6,11 @@ namespace spaceinvaders {
 
 using cinder::app::getWindowHeight;
 
-Projectile::Projectile(const cinder::vec2 &position, Type type,
+Projectile::Projectile(const cinder::vec2 &position,
                        Direction direction)
     : position_(position),
       Collidable(position.x - (kWidth / 2.0f), position.y - (kHeight / 2.0f),
                  position.x + (kWidth / 2.0f), position.y + (kHeight / 2.0f)),
-      type_(type),
       direction_(direction) {
   static int ID = 0;
   id_ = ID++;
@@ -32,9 +31,7 @@ void Projectile::Destroy() { is_active_ = false; }
 
 const cinder::vec2 &Projectile::GetPosition() const { return position_; }
 
-bool Projectile::IsActive() const { return is_active_; }
+auto Projectile::IsActive() const -> bool { return is_active_; }
 
-Projectile::Direction Projectile::GetDirection() const { return direction_; }
-
-int Projectile::GetID() const { return id_; }
+auto Projectile::GetID() const -> int { return id_; }
 }  // namespace spaceinvaders

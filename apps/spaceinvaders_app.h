@@ -9,8 +9,6 @@
 
 #include <vector>
 
-#include "Box2D/Box2D.h"
-#include "choreograph/Choreograph.h"
 #include "cinder/app/App.h"
 #include "cinder/app/KeyEvent.h"
 #include "cinder/gl/gl.h"

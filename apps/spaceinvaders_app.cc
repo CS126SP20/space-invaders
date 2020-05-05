@@ -2,16 +2,14 @@
 
 #include "spaceinvaders_app.h"
 
-#include "cinder/Timeline.h"
-
-using namespace ci;
 
 namespace spaceinvaders {
 
 using cinder::vec3;
 using cinder::app::KeyEvent;
 using spaceinvaders::Projectile;
-using namespace po::scene;
+using po::scene::ShapeView;
+using po::scene::Alignment;
 
 MyApp::MyApp()
     : ufo_(rand),
@@ -25,12 +23,10 @@ MyApp::MyApp()
           player_.GetGunPosition().y - (Projectile::kHeight / 2.0f),
           player_.GetGunPosition().x + (Projectile::kWidth / 2.0f),
           player_.GetGunPosition().y + (Projectile::kHeight / 2.0f),
-          "projectile1.png"} {}
+          "projectile.png"} {}
 
 void MyApp::setup() {
   cinder::gl::enableAlphaBlending();
-  choreograph::Timeline timeline;
-  cinder::TimelineRef timeline1 = Timeline::create();
   view = ShapeView::createRect(50.0f, 50.0f);
   view->setPosition(ci::vec2(250.0f, 250.0f))
       .setFillColor(cinder::Color(1.0f, 0.0f, 0.0f))
@@ -103,7 +99,7 @@ void MyApp::draw() {
               {getWindowCenter().x + 50, getWindowCenter().y - 200});
 
     PrintText(std::to_string(player_.GetLives()), cinder::Color::white(),
-              {500, 50}, {getWindowCenter().x + 75, getWindowCenter().y - 200});
+              {500, 50}, {getWindowCenter().x + 100, getWindowCenter().y - 200});
 
     invaders_.DrawInvaders();
     player_.Draw();
@@ -136,8 +132,7 @@ void MyApp::keyDown(KeyEvent event) {
         auto point = player_.GetGunPosition();
         point.y -= 2.0f * Projectile::kHeight;
         point.x -= Projectile::kWidth / 2.0f;
-        projectiles_.emplace_back(point, Projectile::Type::Rectangle,
-                                  Projectile::Direction::Up);
+        projectiles_.emplace_back(point,Projectile::Direction::Up);
         player_shot_clock_.start();
       }
       break;
@@ -188,8 +183,7 @@ void MyApp::EnemyProjectileFire() {
     if (static_cast<int>(point.x) == -1) {
       return;
     }
-    auto type = static_cast<Projectile::Type>(rand.nextInt(1, 2));
-    projectiles_.emplace_back(point, type, Projectile::Direction::Down);
+    projectiles_.emplace_back(point, Projectile::Direction::Down);
     invader_shot_clock_.start();
   }
 }

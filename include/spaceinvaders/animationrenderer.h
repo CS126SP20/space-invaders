@@ -15,8 +15,14 @@ class AnimationRenderer {
   AnimationRenderer(float x1, float y1,
                     float x2, float y2, const std::string &image_path);
 
+  /**
+   * Moves the animation to the next frame.
+   */
   void NextFrame();
 
+  /**
+   * Draws the entity to the screen at a given position.
+   */
   void RenderEntity(const cinder::vec2 &position);
 
  private:

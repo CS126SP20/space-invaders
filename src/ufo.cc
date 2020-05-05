@@ -34,8 +34,6 @@ UFO::UFO(cinder::Rand &rand)
   ci::app::timeline().apply(&start_pos_, end_pos, 15.0f).loop();
 }
 
-State UFO::GetState() const { return state_; }
-
 void UFO::Update() {
   animation_->update();
   switch (state_) {

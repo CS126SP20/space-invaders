@@ -13,25 +13,43 @@ class Projectile : public Collidable {
   constexpr static float kHeight = 20;
   constexpr static float kWidth = 6;
 
-  enum class Type { Rectangle, Lightning, Knife };
-
+  /**
+   * The possible directions that a projectile can go.
+   */
   enum class Direction { Up = -1, Down = 1 };
 
-  Projectile(const cinder::vec2 &position, Type type, Direction direction);
+  Projectile(const cinder::vec2 &position, Direction direction);
+
+  /**
+   * Updates the position of the projectile.
+   */
   void Update();
+
   void OnCollide(Collidable &other) override;
-  void Destroy();
 
   const cinder::vec2 &GetPosition() const;
-  Type GetType() const;
-  bool IsActive() const;
-  Direction GetDirection() const;
 
-  int GetID() const;
+  /**
+   * Destroys the projectile.
+   */
+  void Destroy();
+
+  /**
+   * Determines whether the projectile has collided with something.
+   *
+   * @return false if the projectile has collided, true otherwise.
+   */
+  auto IsActive() const -> bool;
+
+  /**
+   * Gets the ID of the projectile.
+   *
+   * @return the ID of the projectile.
+   */
+  auto GetID() const -> int;
 
  private:
   cinder::vec2 position_;
-  Type type_;
   Direction direction_;
   bool is_active_ = true;
   int id_;

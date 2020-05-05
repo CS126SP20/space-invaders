@@ -1,4 +1,4 @@
-// Copyright (c) 2020 [Your Name]. All rights reserved.
+// Copyright (c) 2020 Saurav Raghavendra. All rights reserved.
 
 #include <cinder/app/App.h>
 #include <cinder/app/RendererGl.h>
@@ -20,7 +20,7 @@ void SetUp(App::Settings* settings) {
   settings->setTitle("Space Invaders");
 }
 
-}  // namespace spaceinvadersapp
+}  // namespace spaceinvaders
 
 
 // This is a macro that runs the application.

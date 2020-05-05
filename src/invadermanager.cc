@@ -17,7 +17,7 @@ const int kMaxInvaders = 55;
 InvaderManager::InvaderManager()
     : step_gap_(std::chrono::seconds(static_cast<long>(0.5f))),
       invader_renderer_(0, 25, Invader::kWidth, 25 + Invader::kHeight,
-                        "invader1.png"),
+                        "invader.png"),
       step_timer_(true),
       alive_invaders_(0) {
   const int gap = 10;
@@ -26,8 +26,7 @@ InvaderManager::InvaderManager()
     for (int x = 0; x < 11; x++) {
       float invader_x = x * Invader::kWidth + (gap * x * 3) + Invader::kWidth;
       float invader_y = y * Invader::kHeight + (gap * y) + Invader::kHeight * 4;
-      invaders_.emplace_back(cinder::vec2{invader_x, invader_y},
-                             Invader::Type::Crab);
+      invaders_.emplace_back(cinder::vec2{invader_x, invader_y});
     }
   }
 }
@@ -71,8 +70,8 @@ void InvaderManager::DrawInvaders() {
   }
 }
 
-CollisionResult InvaderManager::TryCollideWithProjectiles(
-    std::vector<Projectile> &projectiles) {
+auto InvaderManager::TryCollideWithProjectiles(
+    std::vector<Projectile> &projectiles) -> CollisionResult {
   CollisionResult result;
   std::vector<cinder::vec2> collisionPoints;
   for (auto &projectile : projectiles) {
@@ -86,7 +85,7 @@ CollisionResult InvaderManager::TryCollideWithProjectiles(
           has_all_invaders_been_added_ = false;
         }
         result.second.emplace_back(invader.GetPosition());
-        result.first += ((int)invader.GetType() + 1) * 100;
+        result.first += 20;
         UpdateStepDelay();
       }
     }
@@ -94,7 +93,8 @@ CollisionResult InvaderManager::TryCollideWithProjectiles(
   return result;
 }
 
-cinder::vec2 InvaderManager::GetRandomLowestInvaderPoint(cinder::Rand &random) {
+auto InvaderManager::GetRandomLowestInvaderPoint(cinder::Rand &random)
+    -> cinder::vec2 {
   if (alive_invaders_ == 0) {
     return {-1, -1};
   }
@@ -133,26 +133,23 @@ void InvaderManager::InitAddInvader() {
   }
 }
 
-bool InvaderManager::AreInvadersAlive() const {
+auto InvaderManager::AreInvadersAlive() const -> bool {
   return has_all_invaders_been_added_;
 }
 
 void InvaderManager::UpdateStepDelay() {
-  step_gap_ =
-      std::chrono::seconds(static_cast<long>((float)alive_invaders_ / 90.0f));
+  step_gap_ = std::chrono::seconds(
+      static_cast<int32_t>(static_cast<float>(alive_invaders_) / 90.0f));
 }
 
-bool InvaderManager::TestInvaderPosition(const Invader &invader) {
-  if (invader.GetPosition().y > getWindowHeight() - 75) {
+auto InvaderManager::TestInvaderPosition(const Invader &invader) -> bool {
+  if (invader.GetPosition().y > static_cast<float>(getWindowHeight()) - 75) {
     is_game_over_ = true;
   }
   return (invader.GetPosition().x < 15 && is_moving_left) ||
-         (invader.GetPosition().x + Invader::kWidth > getWindowWidth() - 15 &&
+         (invader.GetPosition().x + Invader::kWidth >
+              static_cast<float>(getWindowWidth()) - 15 &&
           !is_moving_left);
-}
-
-auto InvaderManager::GetAliveInvadersCount() const -> int {
-  return alive_invaders_;
 }
 
 }  // namespace spaceinvaders

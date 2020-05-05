@@ -1,9 +1,8 @@
-// Copyright (c) 2020 CS126SP20. All rights reserved.
+// Copyright (c) 2020 Saurav Raghavendra. All rights reserved.
 
 #define CATCH_CONFIG_MAIN
 
 #include <cinder/Rand.h>
-#include <mylibrary/player.h>
 
 #include <catch2/catch.hpp>
 

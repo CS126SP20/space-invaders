@@ -9,11 +9,11 @@
 
 #include "animationrenderer.h"
 #include "cinder/Rand.h"
+#include "cinder/app/App.h"
+#include "cinder/app/AppBase.h"
 #include "cinder/gl/draw.h"
 #include "spaceinvaders/invader.h"
 #include "spaceinvaders/projectile.h"
-#include "cinder/app/AppBase.h"
-#include "cinder/app/App.h"
 
 namespace spaceinvaders {
 using CollisionResult = std::pair<int, std::vector<cinder::vec2>>;
@@ -22,27 +22,68 @@ class InvaderManager {
  public:
   InvaderManager();
 
+  /**
+   * Attempts to move the invaders a single step.
+   */
   void TryStepInvaders();
 
+  /**
+   * Draws the invaders to the screen
+   */
   void DrawInvaders();
 
-  CollisionResult
-  TryCollideWithProjectiles(std::vector<Projectile> &projectiles);
+  /**
+   * Checks for collisions with projectiles and gets the result of each
+   * collision.
+   *
+   * @param projectiles the vector of projectiles to collide with.
+   * @return a CollisionResult containing a score and vector of invader
+   * positions.
+   */
+  auto TryCollideWithProjectiles(std::vector<Projectile> &projectiles)
+      -> CollisionResult;
 
+  /**
+   * Chooses a random invader and gets its lowest point to shoot from.
+   *
+   * @param random the random object to use.
+   * @return the lowest point of a random invader.
+   */
   auto GetRandomLowestInvaderPoint(cinder::Rand &random) -> cinder::vec2;
 
-  auto GetAliveInvadersCount() const -> int;
-
+  /**
+   * Adds all the invaders to the screen.
+   *
+   */
   void InitAddInvader();
+
+  /**
+   * Checks if all invaders were added.
+   *
+   * @return whether all the invaders were added.
+   */
   auto AreInvadersAlive() const -> bool;
 
-  auto GetGameOver() -> bool { return is_game_over_;}
-
-  auto GetInvaders() -> std::vector<Invader> { return invaders_;}
+  /**
+   * Gets whether the current game is over.
+   *
+   * @return whether the current game is over.
+   */
+  auto GetGameOver() -> bool { return is_game_over_; }
 
  private:
+  /**
+   * Updates the amount of time in between each step based on number of invaders
+   * still alive.
+   */
   void UpdateStepDelay();
 
+  /**
+   * Checks the position of a specific invader.
+   *
+   * @param invader the invader to check.
+   * @return whether the invader is inside or outside the bounds.
+   */
   auto TestInvaderPosition(const Invader &invader) -> bool;
 
   std::vector<Invader> invaders_;
@@ -59,7 +100,6 @@ class InvaderManager {
 
   int init_x_ = 0;
   int init_y_ = 4;
-  int ticks_ = 0;
 };
 }  // namespace spaceinvaders
 
