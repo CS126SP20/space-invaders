@@ -2,12 +2,11 @@
 
 #define CATCH_CONFIG_MAIN
 
-#include <cinder/Rand.h>
+#include "catch2/catch.hpp"
+#include "spaceinvaders/collidable.h"
 
-#include <catch2/catch.hpp>
+using spaceinvaders::Collidable;
 
-TEST_CASE("Random sanity test", "[random]") {
-  const float random = cinder::randFloat();
-  REQUIRE(0. <= random);
-  REQUIRE(random <= 1.);
+TEST_CASE("Collidable test") {
+
 }

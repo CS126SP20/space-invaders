@@ -9,10 +9,10 @@ file(GLOB SOURCE_LIST CONFIGURE_DEPENDS
 
 
 ci_make_app(
-        APP_NAME    test
+        APP_NAME test
         CINDER_PATH ${CINDER_PATH}
-        SOURCES     ${SOURCE_LIST}
-        LIBRARIES   mylibrary catch2
+        SOURCES ${SOURCE_LIST}
+        LIBRARIES mylibrary catch2
         BLOCKS Cinder-poSpritesheet Cinder-poScene
 )
 
@@ -36,4 +36,7 @@ elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
     cmake_policy(SET CMP0015 NEW)
     target_compile_options(test PRIVATE
             /W3)
+
 endif ()
+
+set_property(TARGET test APPEND_STRING PROPERTY LINK_FLAGS " /SUBSYSTEM:CONSOLE")
