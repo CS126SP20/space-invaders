@@ -12,3 +12,5 @@
 05/02/20 - Added all classes for different objects on the screen and their interactions.
 
 05/03/20 - Added visuals to main class including movement of invaders on the screen.
+
+05/04/20 - Made final changes including working collisions and proper scoring.
