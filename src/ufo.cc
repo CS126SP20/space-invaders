@@ -21,8 +21,8 @@ constexpr float Y_POS = 45;
 UFO::UFO(cinder::Rand &rand)
     : Collidable(0, 0, 10, 5),
       rng_(rand),
-      texture_(Texture2d::create(loadImage(loadAsset("ufo.png")))),
       json_(cinder::JsonTree(loadAsset("ufo.json"))) {
+  texture_ = Texture2d::create(loadImage(loadAsset("ufo.png")));
   sprite_sheet_ = po::Spritesheet::create(texture_, json_);
   sprite_ = cinder::Rectf(sprite_sheet_->getFrameBounds());
   animation_ = po::SpritesheetAnimation::create(sprite_sheet_);

@@ -8,7 +8,7 @@
 
 namespace spaceinvaders {
 
-class Player : public Collidable{
+class Player : public Collidable {
  public:
   constexpr static int kWidth = 44;
   constexpr static int kHeight = 32;

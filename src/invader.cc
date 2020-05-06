@@ -1,6 +1,4 @@
-//
-// Created by Saurav Raghavendra on 4/28/2020.
-//
+// Copyright (c) 2020 Saurav Raghavendra. All rights reserved.
 
 #include "spaceinvaders/invader.h"
 

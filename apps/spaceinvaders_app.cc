@@ -47,7 +47,7 @@ void MyApp::update() {
 
       auto collision_result = GetCollisionResult();
       if (collision_result.second.size() > 0) {
-        score_ += collision_result.first;
+        score_ += 20;
       }
       ufo_.Update();
     }

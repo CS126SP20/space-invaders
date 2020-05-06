@@ -7,9 +7,6 @@ namespace spaceinvaders {
 using cinder::app::getWindowHeight;
 using cinder::app::getWindowWidth;
 
-using cinder::TextBox;
-using cinder::app::getWindowCenter;
-
 namespace {
 const int kMaxInvaders = 55;
 }
@@ -24,8 +21,10 @@ InvaderManager::InvaderManager()
 
   for (int y = 0; y < 5; y++) {
     for (int x = 0; x < 11; x++) {
-      float invader_x = x * Invader::kWidth + (gap * x * 3) + Invader::kWidth;
-      float invader_y = y * Invader::kHeight + (gap * y) + Invader::kHeight * 4;
+      float invader_x = static_cast<float>(x) * Invader::kWidth +
+                        static_cast<float>(gap * x * 3) + Invader::kWidth;
+      float invader_y = static_cast<float>(y) * Invader::kHeight +
+                        static_cast<float>(gap * y) + Invader::kHeight * 4;
       invaders_.emplace_back(cinder::vec2{invader_x, invader_y});
     }
   }
